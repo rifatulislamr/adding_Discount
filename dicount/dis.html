@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Cart</title>
+</head>
+<body>
+  <h1>Available Courses</h1>
+  <p>Add all courses to cart and get 50% discount!</p>
+  <div id="courses">
+    <div class="course">
+      <h3>Course 1</h3>
+      <p>Price: $100</p>
+      <button onclick="addToCart('Course 1', 100)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>Course 2</h3>
+      <p>Price: $150</p>
+      <button onclick="addToCart('Course 2', 150)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>Course 3</h3>
+      <p>Price: $200</p>
+      <button onclick="addToCart('Course 3', 200)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>Course 4</h3>
+      <p>Price: $250</p>
+      <button onclick="addToCart('Course 4', 250)">Add to Cart</button>
+    </div>
+    <div class="course">
+      <h3>Course 5</h3>
+      <p>Price: $300</p>
+      <button onclick="addToCart('Course 5', 300)">Add to Cart</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <h1>Cart</h1>
+  <div id="cart">
+    <!-- Cart items will be displayed here -->
+  </div>
+  <p>Total: <span id="total">0</span></p>
+  <p id="discountMessage"></p>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(courseName, price) {
+      cart.push({name: courseName, price: price});
+      total += price;
+
+      if (cart.length === 5) {
+        applyDiscount();
+      }
+
+      updateCart();
+    }
+
+    function applyDiscount() {
+      let discount = total * 0.5;
+      total -= discount;
+      let saved = discount; // Amount saved
+
+      document.getElementById("discountMessage").textContent = `Congratulations! You've received a 50% discount. You saved $${saved}.`;
+    }
+
+    function updateCart() {
+      let cartElement = document.getElementById("cart");
+      let totalElement = document.getElementById("total");
+      cartElement.innerHTML = ""; // Clear previous content
+
+      cart.forEach(course => {
+        let courseItem = document.createElement("div");
+        courseItem.textContent = course.name + " - $" + course.price;
+        cartElement.appendChild(courseItem);
+      });
+
+      totalElement.textContent = total;
+    }
+  </script>
+</body>
+</html>
